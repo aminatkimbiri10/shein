@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shein </title>
+    <style>
+
+
+
+
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;  
+             background-color: #f5f5f5;
+             font-family: cursive;
+}
+        
+        h1 {
+            text-align: center;
+            font-family: cursive;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        select,
+        input[type="text"],
+        button {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-left: none;
+            border-right: none;
+        }
+        
+        th,
+        td {
+            border-left: none;
+            border-right: none;
+            border: none;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        td img {
+            max-width: 50px;
+            max-height: 50px;
+        }
+        
+        .total {
+            font-weight: bold;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+        tr:hover{
+        background-color: rgb(195, 192, 192);
+        }
+        tr{
+            border: 1px solid black;
+           
+        }
+
+        @media screen and (max-width: 768px) {
+            img {
+                width: 100%;
+            }
+
+            table {
+                width: 100%;
+            }
+
+            th, td {
+                font-size: 12px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            th, td {
+                font-size: 10px;
+            }
+        } 
+        #myTable.empty thead {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenue sur Shein</h1>
+    <label for="article">Choisir un article :</label><select id="article">
+        <option value="choix" disabled selected>Choisir un article</option>
+    </select><br>
+    <label for="taille">Choisir la taille</label><select id="taille">
+        <option value="choix" disabled selected>Choisir une taille</option>
+        
+    </select><br>
+    <label for="prix">Prix</label><input type="text" name="prix" id="prix" ><br>
+    <label for="nbres_articles">Nombres d'article :</label><input type="text" value="1" name="nbres_articles" id="nbres_articles"><br>
+    <label for="total">Total :</label><span></span><br>
+    <button onclick="Ajouter()">Ajouter au panier</button>
+<table border="2"  id="myTable" class="empty">
+    <thead >
+        <th>Article</th>
+        <th>Taille</th>
+        <th>Nombres Articles</th>
+        <th>Image</th>
+        <th>Prix</th>
+        <th>Action</th>
+    </thead>
+    <tbody></tbody>
+</table>
+    <script>
+
+        
+        let data_t = {
+            tailles:[
+                {t:"XS",prix:50},
+                {t:"XL",prix:70},
+                {t:"XXL",prix:90},
+                {t:"Lg",prix:110},
+            ]
+        }
+
+        let ding = data_t.tailles
+
+        function mah() {
+            let select = document.querySelector("#taille")
+            for (let i = 0; i < ding.length; i++) {
+                let det = ding[i].t
+                let opt = document.createElement("option")
+                opt.textContent = det
+                select.appendChild(opt)
+            }
+        }mah()
+        
+        let data = {
+            articles:[
+                {ref:'CHEMISE',prix:100,manettes:2,image:'img1.jpg'},
+                {ref:'PANTALON',prix:150,manettes:1,image:'img2.jpg'},
+                {ref:'ROBE',prix:300,manettes:2,image:'img3.jpg'},
+                {ref:'JUPE',prix:200,manettes:1,image:'img4.jpg'},
+            ]
+        }
+
+        let donnees = data.articles
+        
+        function validation() {
+            let article = document.querySelector("#article").value
+            let taille = document.querySelector("#taille").value
+            if (article.selectIndex == 0 || taille.selectIndex == 0) {
+                return false
+            }
+            else{
+                return true
+            }
+        }
+
+
+        function remplir() {
+            let select = document.querySelector("#article")
+            for (let i = 0; i < data.articles.length; i++) {
+                const donnees = data.articles[i].ref;
+                let opt = document.createElement("option")
+                opt.textContent = donnees
+                select.appendChild(opt)
+            }
+        }
+        remplir()
+
+        function Ajouter(){
+            if (validation()) {
+                let ref = document.querySelector("#article").value
+                let taille = document.querySelector("#taille").value 
+                let nbres_articles = document.querySelector("#nbres_articles").value
+                let image = donnees.find((e)=>e.ref == ref).image
+                let prix2 = donnees.find((item)=>item.ref == ref).prix
+                let prix = ding.find((item)=>item.t == taille).prix
+                //document.querySelector("#prix").value = Number(prix+prix2)
+                
+  let tbody = document.querySelector("tbody");
+  let line = document.createElement("tr");
+  let td1 = document.createElement("td");
+  let td2 = document.createElement("td");
+  let td3 = document.createElement("td");
+  let td4 = document.createElement("td");
+  let td5 = document.createElement("td");
+  let td6 = document.createElement("td");
+  let btn = document.createElement("button");
+  btn.type="button";
+  td1.textContent = ref
+  td2.textContent = taille
+  td3.textContent = nbres_articles 
+  td4.innerHTML = `<img alt="${ref}" src="${image}">`
+  td5.textContent = Number(prix+prix2)
+  btn.innerHTML = "Supprimer"
+  btn.addEventListener("click",myself)
+  td6.appendChild(btn)
+
+
+  line.appendChild(td1)
+  line.appendChild(td2)
+  line.appendChild(td3)
+  line.appendChild(td4)
+  line.appendChild(td5)
+  line.appendChild(td6)
+  tbody.appendChild(line)
+  Total()
+  let tb = document.querySelector("tbody");
+            let isEmpty = tb.children.length === 0;
+            if (isEmpty) {
+                document.getElementById("myTable").classList.add("empty");
+            } else {
+                document.getElementById("myTable").classList.remove("empty");
+            }
+
+            }
+        }
+       
+
+function Total() {
+  let AllTr = document.querySelector("tbody").children;
+  let total = 0;
+  console.log("avant for", AllTr)
+  for (let i = 0; i < AllTr.length; i++) {
+    console.log("dans for")
+    let taille = AllTr[i].children[1].textContent;
+    let ref = document.querySelector("#article").value;
+    console.log("TAILLE : ", taille)
+    let prix2 = donnees.find((item) => item.ref === ref).prix;
+    let prix = ding.find((e) => e.t === taille).prix;
+    let nbres_articles = parseInt(AllTr[i].children[2].textContent);
+    total += (prix + prix2 )* nbres_articles;
+    console.log(prix, prix2, nbres_articles)
+  }
+
+  document.querySelector("span").innerHTML = total;
+}
+    function myself(e) {
+        e.target.parentElement.parentElement.remove()
+    } 
+   
+    function chargerPrix() {
+    let ref = document.querySelector("#article").value;
+    let taille = document.querySelector("#taille").value;
+//console.log(ref, taille)
+    if(ref!="choix" && taille!="choix"){
+        
+        let prix2 = donnees.find((item) => item.ref === ref).prix;
+        let prix = ding.find((item) => item.t === taille).prix;
+       // console.log(prix, prix2)
+        let totalPrix = prix + prix2;
+        document.querySelector("#prix").value = totalPrix;
+        Total();
+    }
+
+
+
+}
+
+let selectArticle = document.querySelector("#article");
+selectArticle.addEventListener("change", chargerPrix);
+
+
+let selectTaille = document.querySelector("#taille");
+selectTaille.addEventListener("change", chargerPrix);
+
+    </script>
+</body>
+</html>
